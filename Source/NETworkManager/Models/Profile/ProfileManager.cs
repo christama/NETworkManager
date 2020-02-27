@@ -254,8 +254,14 @@ namespace NETworkManager.Models.Profile
         #region Load profile, save profile
         private static void Load(ProfileFileInfo info)
         {
-            if (File.Exists(info.Path))
-                DeserializeFromFile(info.Path).ForEach(AddProfile);
+            try
+            {
+                if (File.Exists(info.Path))
+                    DeserializeFromFile(info.Path).ForEach(AddProfile);
+            } catch (InvalidOperationException)
+            {
+                
+            }
 
             ProfilesChanged = false;
 
